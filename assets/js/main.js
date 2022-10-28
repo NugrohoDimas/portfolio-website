@@ -144,3 +144,32 @@ themeButton.addEventListener('click', () => {
     localStorage.setItem('selected-theme', getCurrentTheme)
     localStorage.setItem('selected-icon', getCurrentIcon)
 })
+
+/*==================== SENDING EMAIL =================*/
+const btnSendEmail = document.getElementById('send-message')
+
+btnSendEmail.addEventListener('click', function (e) {
+    e.preventDefault()
+
+    $nameData = document.getElementById('input-name').value
+    $emailData = document.getElementById('input-email').value
+    $subjectData = document.getElementById('input-subject').value
+    $messageData = document.getElementById('input-message').value
+
+    fetch("https://formsubmit.co/ajax/4fc2a820055a673b686b64a6975c8f0f", {
+        method: "POST",
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            name: $nameData,
+            email: $emailData,
+            subject: $subjectData,
+            message: $messageData
+        })
+    })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error));
+})
